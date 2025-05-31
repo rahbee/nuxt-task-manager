@@ -1,0 +1,105 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+/* Main CSS file for Task Manager App */
+
+/* Custom keyframes */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Custom animations */
+.animate-slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-bounce-in {
+  animation: bounceIn 0.5s ease-out;
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s infinite;
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Task card hover effects */
+.task-card {
+  transition: all 0.2s ease-in-out;
+}
+
+.task-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Gradient backgrounds */
+.gradient-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.gradient-bg-success {
+  background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+}
+
+.gradient-bg-warning {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+}
+
+.gradient-bg-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}

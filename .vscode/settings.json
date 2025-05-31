@@ -1,0 +1,28 @@
+{
+  "typescript.preferences.includePackageJsonAutoImports": "auto",
+  "typescript.suggest.autoImports": true,
+  "vue.codeActions.enabled": true,
+  "vue.complete.casing.tags": "kebab",
+  "vue.complete.casing.props": "camel",
+  "files.associations": {
+    "*.vue": "vue",
+    "*.css": "tailwindcss"
+  },
+  "editor.codeActionsOnSave": {
+    "source.eslint": "explicit"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "vue"
+  ],
+  "tailwindCSS.classAttributes": ["class", "ui"],
+  "tailwindCSS.experimental.classRegex": [
+    ["ui:\\s*{([^)]*)\\s*}", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ]
+}
