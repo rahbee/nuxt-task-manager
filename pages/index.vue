@@ -95,7 +95,7 @@
           </div>
           
           <!-- Stats Grid -->
-          <div class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+          <div class="hidden sm:grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
             <!-- Total Tasks -->
             <button 
               class="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-600/50 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-blue-500/20 min-w-0"

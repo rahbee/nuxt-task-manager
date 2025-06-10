@@ -20,14 +20,24 @@
       
       <!-- Description -->
       <UFormField label="Description" name="description">
-        <UTextarea
-          v-model="formState.description"
-          placeholder="Enter task description..."
-          :rows="6"
-          resize
-          class="w-full text-base"
-          size="xl"
-        />
+        <ClientOnly>
+          <QuillEditor
+            v-model="formState.description"
+            theme="snow"
+            :toolbar="toolbarOptions"
+            class="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 min-h-[180px]"
+          />
+          <template #fallback>
+            <UTextarea
+              v-model="formState.description"
+              placeholder="Enter task description..."
+              :rows="6"
+              resize
+              class="w-full text-base"
+              size="xl"
+            />
+          </template>
+        </ClientOnly>
       </UFormField>
       
       <!-- Priority and Category in larger layout -->
@@ -99,6 +109,16 @@
 <script setup lang="ts">
 import { TaskPriority, PRIORITY_OPTIONS, type Task, type CreateTaskInput } from '~/types/task'
 import { z } from 'zod'
+import { ref, computed, defineAsyncComponent } from 'vue'
+
+// Import QuillEditor only on client to avoid SSR errors
+defineOptions({ name: 'TaskForm' })
+const QuillEditor = import.meta.client
+  ? defineAsyncComponent(() => import('@vueup/vue-quill').then(m => m.QuillEditor))
+  : undefined
+if (import.meta.client) {
+  import('@vueup/vue-quill/dist/vue-quill.snow.css')
+}
 
 interface Props {
   task?: Task
@@ -210,6 +230,11 @@ const minDateTime = computed(() => {
   now.setMinutes(now.getMinutes() - now.getTimezoneOffset())
   return now.toISOString().slice(0, 16)
 })
+
+// Quill editor toolbar for a minimal set of controls
+const toolbarOptions = [
+  ['bold', 'italic', 'underline', 'strike', 'link', 'clean']
+]
 
 // Methods
 function formatDateTimeLocal(date: Date): string {

@@ -1,10 +1,11 @@
 <template>
   <UCard 
-    class="task-card group relative transition-all duration-200 hover:shadow-lg"
+    class="task-card group relative transition-all duration-200 hover:shadow-lg cursor-pointer"
     :class="{
       'opacity-60': task.completed,
       'border-red-200 dark:border-red-800': isOverdue(task.dueDate, task.completed),
     }"
+    @click="emit('edit', task)"
   >
     <!-- Priority indicator -->
     <div 
@@ -21,6 +22,7 @@
           size="lg"
           class="mt-1 flex-shrink-0"
           @change="$emit('toggle-completion', task.id)"
+          @click.stop
         />
         
         <!-- Task content -->
@@ -42,15 +44,15 @@
         </div>
       </div>
       
-      <!-- Actions dropdown -->
-      <UDropdownMenu :items="dropdownItems" :content="{ align: 'end' }">
-        <UButton
-          variant="ghost"
-          size="sm"
-          icon="i-lucide-more-horizontal"
-          class="opacity-0 group-hover:opacity-100 transition-opacity"
-        />
-      </UDropdownMenu>
+      <!-- Delete button -->
+      <UButton
+        variant="ghost"
+        size="sm"
+        icon="i-lucide-trash-2"
+        aria-label="Delete Task"
+        class="opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
+        @click.stop="emit('delete', task.id)"
+      />
     </div>
     
     <!-- Task metadata -->
@@ -123,35 +125,12 @@ import type { Task } from '~/types/task'
 import { formatDueDate, formatRelativeDate, isOverdue } from '~/utils/date'
 import { getPriorityColor, getPriorityIcon } from '~/utils/priority'
 
-interface Props {
-  task: Task
-}
-
-interface Emits {
-  (e: 'toggle-completion' | 'delete' | 'duplicate', id: string): void
-  (e: 'edit', task: Task): void
-}
-
-const props = defineProps<Props>()
-const emit = defineEmits<Emits>()
-
-const dropdownItems = [
-  [{
-    label: 'Edit',
-    icon: 'i-lucide-edit',
-    onSelect: () => emit('edit', props.task)
-  }],
-  [{
-    label: 'Duplicate',
-    icon: 'i-lucide-copy',
-    onSelect: () => emit('duplicate', props.task.id)
-  }],
-  [{
-    label: 'Delete',
-    icon: 'i-lucide-trash-2',
-    onSelect: () => emit('delete', props.task.id)
-  }]
-]
+defineProps<{ task: Task }>()
+const emit = defineEmits({
+  'toggle-completion': (_id: string) => true,
+  'delete': (_id: string) => true,
+  'edit': (_task: Task) => true
+})
 </script>
 
 <style scoped>
